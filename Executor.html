@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executor | Titan Battlefront Wiki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --sidebar-bg: #0d0d0d;
+            --card-bg: rgba(15, 15, 15, 0.98);
+            --gold-accent: #f0c32d;
+            --border-metal: #2a1f16;
+            --damage-color: #ff4d4d;
+            --sidebar-width-closed: 70px;
+            --sidebar-width-open: 280px;
+            --transition-speed: 0.4s;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            color: #fff;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                        url('https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        #sidebar {
+            width: var(--sidebar-width-closed);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 2px solid var(--border-metal);
+            position: fixed;
+            left: 0; top: 0;
+            z-index: 1000;
+            transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar:hover { width: var(--sidebar-width-open); }
+        .sidebar-header { padding: 20px 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border-metal); min-width: var(--sidebar-width-open); }
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; }
+        .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
+        #sidebar:hover .header-text { opacity: 1; }
+        .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
+        .header-text span { color: var(--gold-accent); font-size: 0.7rem; font-weight: bold; }
+
+        .nav-item { display: flex; align-items: center; padding: 18px 22px; text-decoration: none; color: #888; transition: 0.3s; white-space: nowrap; }
+        .nav-item i { font-size: 1.2rem; min-width: 25px; text-align: center; }
+        .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; transition: 0.2s; }
+        #sidebar:hover .nav-item span { opacity: 1; }
+        .nav-item:hover { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
+
+        /* --- CONTENT AREA --- */
+        #main-content {
+            margin-left: var(--sidebar-width-closed);
+            flex-grow: 1;
+            padding: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { max-width: 1000px; width: 100%; }
+
+        /* --- BACK BUTTON --- */
+        .btn-back-container {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: #888;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            padding: 8px 15px;
+        }
+
+        .btn-back:hover {
+            color: var(--gold-accent);
+            transform: translateX(-5px);
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-metal);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+        }
+
+        /* УМЕНЬШЕННЫЙ КОНТЕЙНЕР ДЛЯ ФОТО */
+        .image-viewport {
+            position: relative;
+            width: 100%;
+            height: 320px; /* Уменьшенная высота */
+            background: #000;
+            border-radius: 12px;
+            border: 2px solid var(--gold-accent);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .char-preview-img {
+            width: 95%; 
+            height: calc(100% - 4px); 
+            object-fit: contain;
+            object-position: bottom center;
+            margin-bottom: 4px; /* Прижато к золотой полоске */
+        }
+
+        /* ТОНКАЯ ЗОЛОТАЯ ЛИНИЯ */
+        .image-viewport::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px; /* Тонкий аккуратный бортик */
+            background: var(--gold-accent);
+            box-shadow: 0 -2px 10px rgba(240, 195, 45, 0.5);
+        }
+
+        .char-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin: 10px 0;
+            color: var(--gold-accent);
+        }
+
+        .main-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+            border: 1px solid var(--border-metal);
+        }
+        .stat-box b { display: block; font-size: 1.5rem; color: #fff; font-family: 'Orbitron'; }
+        .stat-box span { font-size: 0.7rem; color: var(--gold-accent); font-weight: bold; }
+
+        /* Skills List */
+        .skills-grid {
+            margin-top: 40px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-metal);
+            border-radius: 12px;
+            padding: 18px 25px;
+            display: grid;
+            grid-template-columns: 80px 1fr 220px;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .skill-item:hover { border-color: var(--gold-accent); background: #111; }
+
+        .key {
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            font-weight: 900;
+        }
+
+        .skill-name {
+            font-family: 'Oswald';
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .damage-tag {
+            text-align: right;
+            font-family: 'Orbitron';
+            color: var(--damage-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .damage-tag span {
+            display: block;
+            font-size: 0.65rem;
+            color: #888;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 850px) {
+            .profile-header { grid-template-columns: 1fr; }
+            .image-viewport { height: 280px; }
+            .skill-item { grid-template-columns: 60px 1fr; }
+            .damage-tag { grid-column: 2; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" class="header-logo-img" alt="Logo">
+            <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL WIKI</span></div>
+        </div>
+        <nav style="margin-top: 20px;">
+          <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
+    <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
+    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+        </nav>
+    </aside>
+
+    <main id="main-content">
+        <div class="container">
+            
+            <div class="btn-back-container">
+                <a href="Character.html" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> BACK TO CHARACTERS
+                </a>
+            </div>
+            
+            <div class="profile-header">
+                <div class="image-viewport">
+                    <img src="Scythe3.png" alt="Doombringer" class="char-preview-img" onerror="this.src='https://i.ibb.co.com/Xk7gkgDH/Scythe3.png'">
+                </div>
+
+                <div class="char-info">
+                    <div style="color: var(--gold-accent); font-weight: bold; letter-spacing: 3px; font-size: 0.8rem;">Balanced / Melee</div>
+                    <h1>Executor</h1>
+                    <p style="color: #888; font-style: italic; margin-bottom: 20px;">"Huge damage, huge health, but very slow and requires to much energy."</p>
+                    
+                    <div class="main-stats">
+                        <div class="stat-box"><b>265</b><span>HEALTH</span></div>
+                        <div class="stat-box"><b>100</b><span>ENERGY</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="font-family: 'Orbitron'; margin-top: 50px; border-left: 4px solid var(--gold-accent); padding-left: 15px;">ABILITY DATA</h2>
+
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="key">M1</div>
+                    <div class="skill-name">Scythe-Slash</div>
+                    <div class="damage-tag">30 DMG<span>BASIC ATTACK</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">F-Hold</div>
+                    <div class="skill-name">ScytheBlock</div>
+                    <div class="damage-tag">BLOCK<span>Blocks orbs and lasers. (Lasers heal you)</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">R</div>
+                    <div class="skill-name">ThrowScythe</div>
+                    <div class="damage-tag">80 DMG<span>Throws up the Scythe Towards player and goes back to hand.</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">V-Hold</div>
+                    <div class="skill-name">Deflect</div>
+                    <div class="damage-tag">Deflect the orb<span>Depends On Dmg and Range</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">T-Hold</div>
+                    <div class="skill-name">Energy-Regen</div>
+                    <div class="damage-tag">Exchange Up your energy to heal you.<span></span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">E</div>
+                    <div class="skill-name">Speakers</div>
+                    <div class="damage-tag">Stun<span>Stuns Up For 3 Second.</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">Q</div>
+                    <div class="skill-name">Dash</div>
+                    <div class="damage-tag">Dash Up Where you move<span>Explodes and does splash DMG</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">C-Hold</div>
+                    <div class="skill-name">Speaker-Stun</div>
+                    <div class="damage-tag">27-30 DMG<span>PASSIVE BURN RADIUS</span></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
