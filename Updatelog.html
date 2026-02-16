@@ -19,6 +19,7 @@
             --tag-new: #4caf50;
             --tag-fix: #ff9800;
             --tag-balance: #2196f3;
+            --tag-rework: #9c27b0;
         }
 
         body {
@@ -34,7 +35,28 @@
             overflow-x: hidden;
         }
 
-        /* --- SIDEBAR --- */
+        #mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--gold-accent);
+            border: 1px solid rgba(240, 195, 45, 0.3);
+            backdrop-filter: blur(2px);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #mobile-menu-btn:hover {
+            background: rgba(240, 195, 45, 0.2);
+            border-color: var(--gold-accent);
+        }
+
         #sidebar {
             width: var(--sidebar-width-closed);
             height: 100vh;
@@ -49,8 +71,16 @@
             flex-direction: column;
         }
         #sidebar:hover { width: var(--sidebar-width-open); }
-        .sidebar-header { padding: 20px 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border-metal); min-width: var(--sidebar-width-open); }
-        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; }
+
+        .sidebar-header { 
+            padding: 20px 15px; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            border-bottom: 1px solid var(--border-metal); 
+            min-width: var(--sidebar-width-open); 
+        }
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; flex-shrink: 0; }
         .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
         #sidebar:hover .header-text { opacity: 1; }
         .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
@@ -60,15 +90,32 @@
         .nav-item i { font-size: 1.2rem; min-width: 25px; text-align: center; }
         .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; transition: 0.2s; }
         #sidebar:hover .nav-item span { opacity: 1; }
-        .nav-item:hover, .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
+        .nav-item:hover { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
+        .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.1); border-left: 3px solid var(--gold-accent); }
 
-        /* --- CONTENT --- */
-        #main-content { margin-left: var(--sidebar-width-closed); flex-grow: 1; padding: 60px 40px; display: flex; flex-direction: column; align-items: center; }
-        .page-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 10px; margin: 0; text-align: center; }
+        #main-content { 
+            margin-left: var(--sidebar-width-closed); 
+            flex-grow: 1; 
+            padding: 60px 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            transition: 0.3s;
+        }
+
+        .page-title { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: clamp(2rem, 8vw, 4rem); 
+            font-weight: 900; 
+            color: #fff; 
+            text-transform: uppercase; 
+            letter-spacing: 10px; 
+            margin: 0; 
+            text-align: center; 
+        }
         .page-title span { color: var(--gold-accent); }
         .divider { width: 100px; height: 4px; background: var(--gold-accent); margin: 20px 0 50px 0; }
 
-        /* --- UPDATE LOGS --- */
         .logs-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 40px; position: relative; }
         .logs-container::before {
             content: "";
@@ -105,6 +152,8 @@
             border-bottom: 1px solid var(--border-metal);
             padding-bottom: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .version-tag { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--gold-accent); }
@@ -124,6 +173,7 @@
         .title-new { background: rgba(76, 175, 80, 0.15); color: var(--tag-new); border: 1px solid var(--tag-new); }
         .title-fix { background: rgba(255, 152, 0, 0.15); color: var(--tag-fix); border: 1px solid var(--tag-fix); }
         .title-balance { background: rgba(33, 150, 243, 0.15); color: var(--tag-balance); border: 1px solid var(--tag-balance); }
+        .title-rework { background: rgba(156, 39, 176, 0.15); color: var(--tag-rework); border: 1px solid var(--tag-rework); }
 
         .log-list { margin: 0; padding-left: 20px; list-style: none; }
         .log-list li { margin-bottom: 12px; font-size: 0.95rem; color: #ccc; position: relative; line-height: 1.6; }
@@ -143,226 +193,282 @@
         }
         .sub-list li { font-size: 0.9rem; color: #aaa; margin-bottom: 4px; line-height: 1.4; }
         .sub-list li b { color: #fff; }
+
+        @media (max-width: 768px) {
+            #mobile-menu-btn { display: block; }
+
+            #sidebar {
+                width: 260px;
+                left: -270px;
+                top: 0;
+                height: 100vh;
+                border-right: 2px solid var(--gold-accent);
+                background: #000;
+                box-shadow: none;
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            #sidebar.active { 
+                left: 0; 
+                box-shadow: 10px 0 100px rgba(0,0,0,0.9);
+            }
+            
+            #sidebar .header-text { opacity: 1; }
+            #sidebar .nav-item span { opacity: 1; }
+            .sidebar-header { display: flex; } 
+
+            #main-content {
+                margin-left: 0;
+                padding: 80px 15px 40px 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .page-title { font-size: 2.5rem; letter-spacing: 5px; }
+
+            .logs-container::before { left: 15px; }
+            .log-entry { margin-left: 30px; padding: 20px; }
+            .log-entry::after { left: -22px; width: 10px; height: 10px; top: 25px; }
+            .log-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            
+            body { background-attachment: scroll; }
+        }
     </style>
 </head>
 <body>
 
-    <aside id="sidebar">
-        <div class="sidebar-header">
-            <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" class="header-logo-img" alt="Logo">
-            <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL WIKI</span></div>
+<button id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+
+<aside id="sidebar">
+    <div class="sidebar-header">
+        <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" class="header-logo-img" alt="Logo">
+        <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL WIKI</span></div>
+    </div>
+    <nav style="margin-top: 20px;">
+        <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
+        <a href="Updatelog.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
+        <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+    </nav>
+</aside>
+
+<main id="main-content">
+    <h1 class="page-title">UPDATE <span>LOGS</span></h1>
+    <div class="divider"></div>
+
+    <div class="logs-container">
+
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">FRED AND ETV UPDATE 1.6</div>
+                <div class="date-tag">February 15, 2026</div>
+            </div>
+
+            <div class="log-section">
+                <span class="section-title title-new">New Characters</span>
+                <ul class="log-list">
+                    <li>
+                        <b>RECOGNIZED SWORDSMAN:</b>
+                        <ul class="sub-list">
+                            <li><b>Arsenal:</b> Equipped with a large variety of weapons.</li>
+                            <li><b>Stats:</b> High Health and extreme movement speed.</li>
+                            <li><b>Passive:</b> Double Jump (7.5s Cooldown).</li>
+                            <li><b>Access:</b> Obtainable via Quest or for 499 Robux.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>ENERGIZED SLAYER:</b>
+                        <ul class="sub-list">
+                            <li><b>Combat:</b> Pure melee-focused powerhouse.</li>
+                            <li><b>Playstyle:</b> Extremely fast and strong, but has lower defense (vulnerable).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="log-section">
+                <span class="section-title title-balance">World & Systems</span>
+                <ul class="log-list">
+                    <li><b>BIGGER 1v1 MAP:</b> Expanded the arena for more tactical 1v1 combat.</li>
+                    <li><b>BUG FIXES:</b> Fixed multiple issues from the 1.5 update.</li>
+                    <li><b>OTHER FEATURES:</b> Minor UI improvements and backend optimizations.</li>
+                </ul>
+            </div>
         </div>
-        <nav style="margin-top: 20px;">
-          <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
-    <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
-    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
-        </nav>
-    </aside>
 
-    <main id="main-content">
-        <h1 class="page-title">UPDATE <span>LOGS</span></h1>
-        <div class="divider"></div>
-
-        <div class="logs-container">
-
-
-<div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">FRED AND ETV UPDATE 1.6</div>
-                    <div class="date-tag">February 15, 2026</div>
-                </div>
-
-                <div class="log-section">
-                    <span class="section-title title-new">New Characters</span>
-                    <ul class="log-list">
-                        <li>
-                            <b>RECOGNIZED SWORDSMAN:</b>
-                            <ul class="sub-list">
-                                <li><b>Arsenal:</b> Equipped with a large variety of weapons.</li>
-                                <li><b>Stats:</b> High Health and extreme movement speed.</li>
-                                <li><b>Passive:</b> Double Jump (7.5s Cooldown).</li>
-                                <li><b>Access:</b> Obtainable via Quest or for 499 Robux.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <b>ENERGIZED SLAYER:</b>
-                            <ul class="sub-list">
-                                <li><b>Combat:</b> Pure melee-focused powerhouse.</li>
-                                <li><b>Playstyle:</b> Extremely fast and strong, but has lower defense (vulnerable).</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="log-section">
-                    <span class="section-title title-balance">World & Systems</span>
-                    <ul class="log-list">
-                        <li><b>BIGGER 1v1 MAP:</b> Expanded the arena for more tactical 1v1 combat.</li>
-                        <li><b>BUG FIXES:</b> Fixed multiple issues from the 1.5 update.</li>
-                        <li><b>OTHER FEATURES:</b> Minor UI improvements and backend optimizations.</li>
-                    </ul>
-                </div>
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">1v1 UPDATE 1.5</div>
+                <div class="date-tag">February 15, 2026</div>
             </div>
 
-
-
-  <div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">1v1 UPDATE 1.5</div>
-                    <div class="date-tag">February 15, 2026</div>
-                </div>
-
-                <div class="log-section">
-                    <span class="section-title title-new">New Content</span>
-                    <ul class="log-list">
-                        <li><b>NEW 1v1 MODE:</b> Matchmaking system added with a brand new exclusive map.</li>
-                        <li><b>10 NEW EMOTES:</b> Added new ways to express yourself in the lobby and battle.</li>
-                        <li><b>UPDATED LOBBY:</b> Visual and functional improvements to the main hub.</li>
-                    </ul>
-                </div>
-
-                <div class="log-section">
-                    <span class="section-title title-rework">Character Changes</span>
-                    <ul class="log-list">
-                        <li>
-                            <b>SOLAR ANNIHILATOR REWORK:</b>
-                            <ul class="sub-list">
-                                <li><b>Model:</b> Completely new high-quality model.</li>
-                                <li><b>Skills:</b> 8 brand new skills + reworked M1 basic attack.</li>
-                                <li><b>Animations:</b> Improved and smoother animation set.</li>
-                                <li><b>Access:</b> Obtainable via Quest or for 349 Robux in the Shop.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <b>QUEEN OF DEATH NEW SKILL:</b>
-                            <ul class="sub-list">
-                                <li><b>Astro Warp:</b> New mobility skill (similar to Juggernaut).</li>
-                                <li><b>Combo Potential:</b> Can be combined with other skills for high mobility.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="log-section">
-                    <span class="section-title title-fix">Systems & Bug Fixes</span>
-                    <ul class="log-list">
-                        <li><b>NEW ANTICHEAT SYSTEM:</b> Enhanced security to prevent exploiters.</li>
-                        <li><b>BUG FIXES:</b> General stability and performance improvements.</li>
-                    </ul>
-                </div>
+            <div class="log-section">
+                <span class="section-title title-new">New Content</span>
+                <ul class="log-list">
+                    <li><b>NEW 1v1 MODE:</b> Matchmaking system added with a brand new exclusive map.</li>
+                    <li><b>10 NEW EMOTES:</b> Added new ways to express yourself in the lobby and battle.</li>
+                    <li><b>UPDATED LOBBY:</b> Visual and functional improvements to the main hub.</li>
+                </ul>
             </div>
 
-
-            <div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">FIRST PATCH 1.4.1</div>
-                    <div class="date-tag">February 4, 2026</div>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-fix">Systems</span>
-                    <ul class="log-list">
-                        <li><b>SETTINGS REMOVED TEMPORARY</b></li>
-                    </ul>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-balance">Balance Buffs</span>
-                    <ul class="log-list">
-                        <li>
-                            <b>DOOMBRINGER BUFFED:</b>
-                            <ul class="sub-list">
-                                <li>Health: 400hp -> 450hp</li>
-                                <li>M1: 40dmg -> 55dmg</li>
-                                <li>Throw Doomblade: 80dmg | Doom Cannon: 130dmg</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <b>QUEEN OF DEATH BUFFED:</b>
-                            <ul class="sub-list">
-                                <li>Spin end hitbox: 60dmg</li>
-                                <li>Pull: 85 studs range</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+            <div class="log-section">
+                <span class="section-title title-rework">Character Changes</span>
+                <ul class="log-list">
+                    <li>
+                        <b>SOLAR ANNIHILATOR REWORK:</b>
+                        <ul class="sub-list">
+                            <li><b>Model:</b> Completely new high-quality model.</li>
+                            <li><b>Skills:</b> 8 brand new skills + reworked M1 basic attack.</li>
+                            <li><b>Animations:</b> Improved and smoother animation set.</li>
+                            <li><b>Access:</b> Obtainable via Quest or for 349 Robux in the Shop.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>QUEEN OF DEATH NEW SKILL:</b>
+                        <ul class="sub-list">
+                            <li><b>Astro Warp:</b> New mobility skill (similar to Juggernaut).</li>
+                            <li><b>Combo Potential:</b> Can be combined with other skills for high mobility.</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
-            <div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">PATCH 1.3.1</div>
-                    <div class="date-tag">January 31, 2026</div>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-balance">Fixes</span>
-                    <ul class="log-list">
-                        <li><b>Glitch Soldier:</b> HP 175 -> 125</li>
-                        <li><b>Play Button:</b> Fixed functionality issues</li>
-                        <li><b>Skills:</b> Fixed Glitch skill "Multi vector Dash"</li>
-                    </ul>
-                </div>
+            <div class="log-section">
+                <span class="section-title title-fix">Systems & Bug Fixes</span>
+                <ul class="log-list">
+                    <li><b>NEW ANTICHEAT SYSTEM:</b> Enhanced security to prevent exploiters.</li>
+                    <li><b>BUG FIXES:</b> General stability and performance improvements.</li>
+                </ul>
             </div>
-
-          <div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">CONTENT UPDATE 1.3.0</div>
-                    <div class="date-tag">January 25, 2026</div>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-new">New Content</span>
-                    <ul class="log-list">
-                        <li><b>NEW CHARACTER: DOOMBRINGER (WOD)</b>
-                            <ul class="sub-list">
-                                <li>8 Abilities, including <b>Ultimate</b>.</li>
-                                <li>Huge damage & health, but can't jump and very slow.</li>
-                            </ul>
-                        </li>
-                        <li><b>QUEEN OF DEATH:</b> 5 Abilities (Early Access).</li>
-                        <li><b>MAPS:</b> Better Lobby and Better Game Map.</li>
-                    </ul>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-fix">Fixes & Systems</span>
-                    <ul class="log-list">
-                        <li><b>ALL LEAPS:</b> Now fully controllable in air.</li>
-                        <li><b>SETTINGS:</b> Fixed functionality (Hopefully).</li>
-                        <li><b>REWORKS:</b> Void Destroyer (Poly) & Juggernaut (New animations/ults).</li>
-                        <li><b>SYSTEMS:</b> +30% Heal on Kill, 10s Anti-reset combat.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="log-entry">
-                <div class="log-header">
-                    <div class="version-tag">CONTENT UPDATE 1.2.x</div>
-                    <div class="date-tag">January 24, 2026</div>
-                </div>
-                <div class="log-section">
-                    <span class="section-title title-new">Systems & Features</span>
-                    <ul class="log-list">
-                        <li><b>FREE YOURSELF:</b> (If you bought it, you will receive another gamepass in return)</li>
-                        <li><b>NEW MAP:</b> Completely reworked battlefield.</li>
-                        <li><b>LEADERBOARDS:</b> Now tracking Kills.</li>
-                        <li><b>UI IMPROVEMENTS:</b> New Energy GUI, New Skills GUI, New Inventory GUI.</li>
-                        <li><b>SETTINGS:</b> Added toggles for VFX, Music, Shadows, and Hitboxes.</li>
-                        <li><b>EMOTES:</b> Added Emotes (50$ to buy, 1 kill - 1$).</li>
-                        <li><b>VIP SYSTEM:</b> 20% discount on emotes, exclusive tag, and more.</li>
-                        <div class="log-section">
-                    <span class="section-title title-balance">Balance Buffs</span>
-                    <ul class="log-list">
-                        <li><b>GLITCH SOLDIER:</b>
-                            <ul class="sub-list">   
-                                <li>HP Buff: 125hp -> 175hp</li>
-                                <li>New Skill: Multi Vector Dash (T)</li>
-                                <li>New Skill: Glitch Mode (Z)</li>
-                            </ul>
-                        </li>
-                        <li><b>MISC:</b> Cooldown for Respawn, New Juggernaut orb VFX.</li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
-    </main>
+
+
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">FIRST PATCH 1.4.1</div>
+                <div class="date-tag">February 4, 2026</div>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-fix">Systems</span>
+                <ul class="log-list">
+                    <li><b>SETTINGS REMOVED TEMPORARY</b></li>
+                </ul>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-balance">Balance Buffs</span>
+                <ul class="log-list">
+                    <li>
+                        <b>DOOMBRINGER BUFFED:</b>
+                        <ul class="sub-list">
+                            <li>Health: 400hp -> 450hp</li>
+                            <li>M1: 40dmg -> 55dmg</li>
+                            <li>Throw Doomblade: 80dmg | Doom Cannon: 130dmg</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>QUEEN OF DEATH BUFFED:</b>
+                        <ul class="sub-list">
+                            <li>Spin end hitbox: 60dmg</li>
+                            <li>Pull: 85 studs range</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">PATCH 1.3.1</div>
+                <div class="date-tag">January 31, 2026</div>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-balance">Fixes</span>
+                <ul class="log-list">
+                    <li><b>Glitch Soldier:</b> HP 175 -> 125</li>
+                    <li><b>Play Button:</b> Fixed functionality issues</li>
+                    <li><b>Skills:</b> Fixed Glitch skill "Multi vector Dash"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">CONTENT UPDATE 1.3.0</div>
+                <div class="date-tag">January 25, 2026</div>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-new">New Content</span>
+                <ul class="log-list">
+                    <li><b>NEW CHARACTER: DOOMBRINGER (WOD)</b>
+                        <ul class="sub-list">
+                            <li>8 Abilities, including <b>Ultimate</b>.</li>
+                            <li>Huge damage & health, but can't jump and very slow.</li>
+                        </ul>
+                    </li>
+                    <li><b>QUEEN OF DEATH:</b> 5 Abilities (Early Access).</li>
+                    <li><b>MAPS:</b> Better Lobby and Better Game Map.</li>
+                </ul>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-fix">Fixes & Systems</span>
+                <ul class="log-list">
+                    <li><b>ALL LEAPS:</b> Now fully controllable in air.</li>
+                    <li><b>SETTINGS:</b> Fixed functionality (Hopefully).</li>
+                    <li><b>REWORKS:</b> Void Destroyer (Poly) & Juggernaut (New animations/ults).</li>
+                    <li><b>SYSTEMS:</b> +30% Heal on Kill, 10s Anti-reset combat.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="version-tag">CONTENT UPDATE 1.2.x</div>
+                <div class="date-tag">January 24, 2026</div>
+            </div>
+            <div class="log-section">
+                <span class="section-title title-new">Systems & Features</span>
+                <ul class="log-list">
+                    <li><b>FREE YOURSELF:</b> (If you bought it, you will receive another gamepass in return)</li>
+                    <li><b>NEW MAP:</b> Completely reworked battlefield.</li>
+                    <li><b>LEADERBOARDS:</b> Now tracking Kills.</li>
+                    <li><b>UI IMPROVEMENTS:</b> New Energy GUI, New Skills GUI, New Inventory GUI.</li>
+                    <li><b>SETTINGS:</b> Added toggles for VFX, Music, Shadows, and Hitboxes.</li>
+                    <li><b>EMOTES:</b> Added Emotes (50$ to buy, 1 kill - 1$).</li>
+                    <li><b>VIP SYSTEM:</b> 20% discount on emotes, exclusive tag, and more.</li>
+                </ul>
+            </div>
+             <div class="log-section">
+                <span class="section-title title-balance">Balance Buffs</span>
+                <ul class="log-list">
+                    <li><b>GLITCH SOLDIER:</b>
+                        <ul class="sub-list">   
+                            <li>HP Buff: 125hp -> 175hp</li>
+                            <li>New Skill: Multi Vector Dash (T)</li>
+                            <li>New Skill: Glitch Mode (Z)</li>
+                        </ul>
+                    </li>
+                    <li><b>MISC:</b> Cooldown for Respawn, New Juggernaut orb VFX.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    
+    btn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !btn.contains(e.target) && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+        }
+    });
+</script>
+
 </body>
-
 </html>
