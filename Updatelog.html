@@ -6,7 +6,7 @@
     <title>Update Logs | Titan Battlefront Wiki</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
-    <style>
+   <style>
     :root {
         --bg-color: #050505;
         --sidebar-bg: #0d0d0d;
@@ -35,7 +35,7 @@
         overflow-x: hidden;
     }
 
-    /* Класс для золотых цифр и важных правок */
+    /* Класс для золотых цифр */
     .highlight {
         color: var(--gold-accent) !important;
         font-weight: bold;
@@ -122,7 +122,16 @@
     .page-title span { color: var(--gold-accent); }
     .divider { width: 100px; height: 4px; background: var(--gold-accent); margin: 20px 0 50px 0; }
 
-    .logs-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 40px; position: relative; }
+    /* Исправленный контейнер */
+    .logs-container { 
+        max-width: 900px; 
+        width: 100%; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 30px; /* Фиксированное расстояние между логами */
+        position: relative; 
+    }
+
     .logs-container::before {
         content: "";
         position: absolute;
@@ -131,6 +140,7 @@
         background: linear-gradient(transparent, var(--border-metal), transparent);
     }
 
+    /* Исправленная коробка лога */
     .log-entry {
         background: var(--card-bg);
         border: 1px solid var(--border-metal);
@@ -139,8 +149,13 @@
         margin-left: 60px;
         position: relative;
         transition: 0.3s;
+        width: calc(100% - 60px); /* Четкая ширина */
+        box-sizing: border-box;
+        align-self: stretch; /* Растягивает все коробки одинаково */
     }
+
     .log-entry:hover { border-color: var(--gold-accent); transform: translateX(5px); }
+    
     .log-entry::after {
         content: "";
         position: absolute;
@@ -205,10 +220,16 @@
         #sidebar { width: 260px; left: -270px; top: 0; height: 100vh; border-right: 2px solid var(--gold-accent); background: #000; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         #sidebar.active { left: 0; box-shadow: 10px 0 100px rgba(0,0,0,0.9); }
         #sidebar .header-text, #sidebar .nav-item span { opacity: 1; }
+        
         #main-content { margin-left: 0; padding: 80px 15px 40px 15px; width: 100%; box-sizing: border-box; }
         .page-title { font-size: 2.5rem; letter-spacing: 5px; }
+        
         .logs-container::before { left: 15px; }
-        .log-entry { margin-left: 30px; padding: 20px; }
+        .log-entry { 
+            margin-left: 30px; 
+            padding: 20px; 
+            width: calc(100% - 30px); /* Корректная ширина на мобилках */
+        }
         .log-entry::after { left: -22px; width: 10px; height: 10px; top: 25px; }
         .log-header { flex-direction: column; align-items: flex-start; gap: 5px; }
         body { background-attachment: scroll; }
@@ -506,6 +527,7 @@
 
 </body>
 </html>
+
 
 
 
