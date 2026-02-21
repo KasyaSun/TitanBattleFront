@@ -131,18 +131,20 @@
         background: linear-gradient(transparent, var(--border-metal), transparent);
     }
 
-    /* КОРОБКА ЛОГА (ФИКС РАЗМЕРА) */
-    .log-entry {
-        background: var(--card-bg);
-        border: 1px solid var(--border-metal);
-        border-radius: 12px;
-        padding: 30px;
-        margin-left: 60px; /* Отступ от линии таймлайна */
-        position: relative;
-        transition: 0.3s;
-        width: auto; /* Позволяем тянуться до краев контейнера */
-        box-sizing: border-box;
-    }
+   .log-entry {
+    background: var(--card-bg);
+    border: 1px solid var(--border-metal);
+    border-radius: 12px;
+    padding: 30px;
+    margin-left: 60px;
+    position: relative;
+    transition: 0.3s;
+    /* ВОТ ЭТО ИСПРАВИТ РАЗМЕР */
+    width: 100%; 
+    max-width: calc(900px - 60px); /* Чтобы не вылезала за пределы контейнера */
+    box-sizing: border-box;
+    display: block; /* Убираем флекс от греха подальше */
+}
 
     .log-entry:hover { border-color: var(--gold-accent); }
 
@@ -506,6 +508,7 @@
 
 </body>
 </html>
+
 
 
 
