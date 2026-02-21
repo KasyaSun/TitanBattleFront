@@ -6,7 +6,7 @@
     <title>Update Logs | Titan Battlefront Wiki</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
-   <style>
+  <style>
     :root {
         --bg-color: #050505;
         --sidebar-bg: #0d0d0d;
@@ -35,7 +35,6 @@
         overflow-x: hidden;
     }
 
-    /* Класс для золотых цифр */
     .highlight {
         color: var(--gold-accent) !important;
         font-weight: bold;
@@ -55,12 +54,6 @@
         border-radius: 6px;
         font-size: 1.4rem;
         cursor: pointer;
-        transition: 0.3s;
-    }
-
-    #mobile-menu-btn:hover {
-        background: rgba(240, 195, 45, 0.2);
-        border-color: var(--gold-accent);
     }
 
     #sidebar {
@@ -89,15 +82,14 @@
     .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; flex-shrink: 0; }
     .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
     #sidebar:hover .header-text { opacity: 1; }
-    .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
-    .header-text span { color: var(--gold-accent); font-size: 0.7rem; font-weight: bold; }
+    .header-text b { display: block; color: #fff; font-size: 0.9rem; }
+    .header-text span { color: var(--gold-accent); font-size: 0.7rem; }
 
-    .nav-item { display: flex; align-items: center; padding: 18px 22px; text-decoration: none; color: #888; transition: 0.3s; white-space: nowrap; }
+    .nav-item { display: flex; align-items: center; padding: 18px 22px; text-decoration: none; color: #888; transition: 0.3s; }
     .nav-item i { font-size: 1.2rem; min-width: 25px; text-align: center; }
-    .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; transition: 0.2s; }
+    .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; }
     #sidebar:hover .nav-item span { opacity: 1; }
-    .nav-item:hover { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
-    .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.1); border-left: 3px solid var(--gold-accent); }
+    .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.1); }
 
     #main-content { 
         margin-left: var(--sidebar-width-closed); 
@@ -106,30 +98,29 @@
         display: flex; 
         flex-direction: column; 
         align-items: center; 
-        transition: 0.3s;
+        box-sizing: border-box; /* Важно! */
     }
 
     .page-title { 
         font-family: 'Orbitron', sans-serif; 
         font-size: clamp(2rem, 8vw, 4rem); 
-        font-weight: 900; 
         color: #fff; 
         text-transform: uppercase; 
         letter-spacing: 10px; 
         margin: 0; 
-        text-align: center; 
     }
     .page-title span { color: var(--gold-accent); }
     .divider { width: 100px; height: 4px; background: var(--gold-accent); margin: 20px 0 50px 0; }
 
-    /* Исправленный контейнер */
+    /* КОНТЕЙНЕР ЛОГОВ */
     .logs-container { 
-        max-width: 900px; 
         width: 100%; 
+        max-width: 900px; 
         display: flex; 
         flex-direction: column; 
-        gap: 30px; /* Фиксированное расстояние между логами */
-        position: relative; 
+        gap: 40px; /* Расстояние между коробками */
+        position: relative;
+        box-sizing: border-box;
     }
 
     .logs-container::before {
@@ -140,22 +131,21 @@
         background: linear-gradient(transparent, var(--border-metal), transparent);
     }
 
-    /* Исправленная коробка лога */
+    /* КОРОБКА ЛОГА (ФИКС РАЗМЕРА) */
     .log-entry {
         background: var(--card-bg);
         border: 1px solid var(--border-metal);
         border-radius: 12px;
         padding: 30px;
-        margin-left: 60px;
+        margin-left: 60px; /* Отступ от линии таймлайна */
         position: relative;
         transition: 0.3s;
-        width: calc(100% - 60px); /* Четкая ширина */
+        width: auto; /* Позволяем тянуться до краев контейнера */
         box-sizing: border-box;
-        align-self: stretch; /* Растягивает все коробки одинаково */
     }
 
-    .log-entry:hover { border-color: var(--gold-accent); transform: translateX(5px); }
-    
+    .log-entry:hover { border-color: var(--gold-accent); }
+
     .log-entry::after {
         content: "";
         position: absolute;
@@ -173,12 +163,11 @@
         border-bottom: 1px solid var(--border-metal);
         padding-bottom: 15px;
         margin-bottom: 20px;
-        flex-wrap: wrap;
         gap: 10px;
     }
 
     .version-tag { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--gold-accent); }
-    .date-tag { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+    .date-tag { font-size: 0.85rem; color: #666; text-transform: uppercase; }
 
     .log-section { margin-bottom: 25px; }
     .section-title {
@@ -192,9 +181,7 @@
     }
 
     .title-new { background: rgba(76, 175, 80, 0.15); color: var(--tag-new); border: 1px solid var(--tag-new); }
-    .title-fix { background: rgba(255, 152, 0, 0.15); color: var(--tag-fix); border: 1px solid var(--tag-fix); }
     .title-balance { background: rgba(33, 150, 243, 0.15); color: var(--tag-balance); border: 1px solid var(--tag-balance); }
-    .title-rework { background: rgba(156, 39, 176, 0.15); color: var(--tag-rework); border: 1px solid var(--tag-rework); }
 
     .log-list { margin: 0; padding-left: 20px; list-style: none; }
     .log-list li { margin-bottom: 12px; font-size: 0.95rem; color: #ccc; position: relative; line-height: 1.6; }
@@ -212,27 +199,17 @@
         border-left: 1px solid rgba(240, 195, 45, 0.2);
         list-style: none;
     }
-    .sub-list li { font-size: 0.9rem; color: #aaa; margin-bottom: 4px; line-height: 1.4; }
+    .sub-list li { font-size: 0.9rem; color: #aaa; margin-bottom: 4px; }
     .sub-list li b { color: #fff; }
 
     @media (max-width: 768px) {
         #mobile-menu-btn { display: block; }
-        #sidebar { width: 260px; left: -270px; top: 0; height: 100vh; border-right: 2px solid var(--gold-accent); background: #000; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        #sidebar.active { left: 0; box-shadow: 10px 0 100px rgba(0,0,0,0.9); }
-        #sidebar .header-text, #sidebar .nav-item span { opacity: 1; }
-        
-        #main-content { margin-left: 0; padding: 80px 15px 40px 15px; width: 100%; box-sizing: border-box; }
-        .page-title { font-size: 2.5rem; letter-spacing: 5px; }
-        
+        #sidebar { width: 260px; left: -270px; }
+        #sidebar.active { left: 0; }
+        #main-content { margin-left: 0; padding: 80px 15px 40px 15px; }
         .logs-container::before { left: 15px; }
-        .log-entry { 
-            margin-left: 30px; 
-            padding: 20px; 
-            width: calc(100% - 30px); /* Корректная ширина на мобилках */
-        }
-        .log-entry::after { left: -22px; width: 10px; height: 10px; top: 25px; }
-        .log-header { flex-direction: column; align-items: flex-start; gap: 5px; }
-        body { background-attachment: scroll; }
+        .log-entry { margin-left: 30px; padding: 20px; }
+        .log-entry::after { left: -22px; }
     }
 </style>
 </head>
@@ -527,6 +504,7 @@
 
 </body>
 </html>
+
 
 
 
