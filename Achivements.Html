@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements | Titan Battlefront Wiki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --sidebar-bg: #0d0d0d;
+            --gold-accent: #f0c32d; 
+            --border-metal: #2a1f16;
+            --sidebar-width-closed: 70px;
+            --sidebar-width-open: 280px;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            color: #e0e0e0;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                        url('https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* --- SIDEBAR --- */
+        #sidebar {
+            width: var(--sidebar-width-closed);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 2px solid var(--border-metal);
+            position: fixed;
+            left: 0; top: 0;
+            z-index: 1000;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        #sidebar:hover { width: var(--sidebar-width-open); }
+        .sidebar-header { padding: 20px 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border-metal); min-width: var(--sidebar-width-open); }
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); }
+        .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
+        #sidebar:hover .header-text { opacity: 1; }
+        .nav-item { display: flex; align-items: center; padding: 18px 22px; text-decoration: none; color: #888; transition: 0.3s; }
+        .nav-item i { font-size: 1.2rem; min-width: 25px; text-align: center; }
+        .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; }
+        #sidebar:hover .nav-item span { opacity: 1; }
+        .nav-item:hover, .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
+
+        /* --- MAIN CONTENT --- */
+        #main-content {
+            margin-left: var(--sidebar-width-closed);
+            flex-grow: 1;
+            padding: 60px 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .page-title { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: #fff; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; }
+        .page-title span { color: var(--gold-accent); }
+
+        /* --- ACHIEVEMENT GRID --- */
+        .achieve-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* --- TITLE CARD STYLE --- */
+        .achieve-card {
+            background: #000;
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        .achieve-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+
+        .title-display { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 0 10px currentColor; }
+        .achieve-name { font-family: 'Oswald', sans-serif; font-size: 1.6rem; color: #fff; margin: 10px 0; border-top: 2px solid #fff; padding-top: 10px; width: 100%; }
+        
+        .quest-info-text { color: #888; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.4; }
+
+        /* --- COLLAPSIBLE QUESTS --- */
+        .quests-container {
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, opacity 0.3s;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .quests-container.open { max-height: 600px; opacity: 1; margin-bottom: 15px; padding-top: 10px; }
+
+        .quest-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            border-left: 3px solid #333;
+        }
+        .quest-step.active { border-left-color: var(--gold-accent); background: rgba(240, 195, 45, 0.1); color: #fff; }
+        .step-num { font-weight: bold; color: var(--gold-accent); }
+
+        .reward-tag {
+            background: rgba(240, 195, 45, 0.15);
+            border: 1px dashed var(--gold-accent);
+            color: var(--gold-accent);
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- BUTTONS --- */
+        .view-quests-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            margin: 15px 0;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .view-quests-btn:hover { background: #fff; color: #000; }
+
+        .damage-stat {
+            width: 100%;
+            border-top: 2px solid;
+            color: #fff;
+            padding-top: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Oswald', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" alt="TB" class="header-logo-img">
+        <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL DATABASE</span></div>
+    </div>
+    <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
+    <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
+    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+    <a href="Achievement.html" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
+</nav>
+
+<main id="main-content">
+    <h1 class="page-title">ACHIEVE<span>MENTS</span></h1>
+    
+    <div class="achieve-grid" id="grid">
+        </div>
+</main>
+
+<script>
+    // Список всех 14 персонажей и титулов
+    const achievements = [
+        { name: "Unstoppable Hero", title: "[Unstoppable]", color: "#00d9ff" },
+        { name: "Storm Breaker", title: "[@*#%?!]", color: "#ff0000" },
+        { name: "Undying Tank", title: "[UNKILLABLE]", color: "#4400ff" },
+        { name: "Night Blade", title: "[I AM NOWHERE]", color: "#9d00ff" },
+        { name: "Injured Hero", title: "[Still Alive]", color: "#009dff" },
+        { name: "Queen Of Death", title: "[Your Queen]", color: "#ff3333" },
+        { name: "Juggernaut", title: "[ENRAGED]", color: "#ff0000" },
+        { name: "Void Destroyer", title: "[In The Shade]", color: "#7a00ff" },
+        { name: "Executor", title: "[EXECUTIONER]", color: "#ff2222" },
+        { name: "Doombringer", title: "[YOUR DOOM]", color: "#ff6600" },
+        { name: "Energized Slayer", title: "[I CANT STOP]", color: "#cc00ff" },
+        { name: "Recognized Swordsman", title: "[LOST HOPE]", color: "#0077ff" },
+        { name: "Solar Annihilator", title: "[Commander]", color: "#ffcc00" },
+        { name: "Glitch Soldier", title: "[Behind You]", color: "#0055ff" }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    achievements.forEach((ach, index) => {
+        const id = `q-${index}`;
+        grid.innerHTML += `
+            <div class="achieve-card" style="border-color: ${ach.color};">
+                <div class="title-display" style="color: ${ach.color};">${ach.title}</div>
+                <h3 class="achieve-name">${ach.name}</h3>
+                <p class="quest-info-text">Make all 5 quests with this character to get title</p>
+                
+                <div class="quests-container" id="${id}">
+                    <div class="quest-step active"><span class="step-num">1/5</span><span>Deal 0/50,000 Damage</span></div>
+                    <div class="quest-step"><span class="step-num">2/5</span><span>500 Kills As With Character (On Which you needed.)</span></div>
+                    <div class="quest-step"><span class="step-num">3/5</span><span>Take Damage while using Sheild as (On which you needed.)  25000 </span></div>
+                    <div class="quest-step"><span class="step-num">4/5</span><span>Play As Character (On which you needed.) 0/18000</span></div>
+                    <div class="quest-step"><span class="step-num">5/5</span><span>Kill 100 Character (Depends on Quest)</span></div>
+                    <div class="reward-tag">REWARD: ${ach.title} Title</div>
+                </div>
+
+                <button class="view-quests-btn" onclick="toggle('${id}', this)">VIEW QUESTS</button>
+                
+                <div class="damage-stat" style="border-color: ${ach.color};"></div>
+            </div>
+        `;
+    });
+
+    function toggle(id, btn) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+        btn.innerText = el.classList.contains('open') ? "HIDE QUESTS" : "VIEW QUESTS";
+    }
+</script>
+
+</body>
+</html>
