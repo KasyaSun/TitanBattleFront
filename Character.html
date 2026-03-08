@@ -34,8 +34,7 @@
         #mobile-menu-btn {
             display: none;
             position: fixed;
-            top: 15px;
-            left: 15px;
+            top: 15px; left: 15px;
             z-index: 2000;
             background: rgba(0, 0, 0, 0.4);
             color: var(--gold-accent);
@@ -48,10 +47,7 @@
             transition: 0.3s;
         }
 
-        #mobile-menu-btn:hover {
-            background: rgba(240, 195, 45, 0.2);
-            border-color: var(--gold-accent);
-        }
+        #mobile-menu-btn:hover { background: rgba(240, 195, 45, 0.2); border-color: var(--gold-accent); }
 
         #sidebar {
             width: var(--sidebar-width-closed);
@@ -71,19 +67,12 @@
 
         .sidebar-header {
             padding: 20px 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid var(--border-metal);
+            display: flex; align-items: center;
+            gap: 15px; border-bottom: 1px solid var(--border-metal);
             min-width: var(--sidebar-width-open);
         }
 
-        .header-logo-img {
-            width: 40px; height: 40px;
-            border: 1px solid var(--gold-accent);
-            object-fit: cover; flex-shrink: 0;
-        }
-
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; flex-shrink: 0; }
         .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
         #sidebar:hover .header-text { opacity: 1; }
         .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
@@ -111,12 +100,9 @@
         .page-title { 
             font-family: 'Orbitron', sans-serif; 
             font-size: clamp(2rem, 5vw, 3.5rem); 
-            font-weight: 900; 
-            color: #fff; 
-            text-transform: uppercase; 
-            letter-spacing: 8px; 
-            margin: 0; 
-            text-align: center; 
+            font-weight: 900; color: #fff; 
+            text-transform: uppercase; letter-spacing: 8px; 
+            margin: 0; text-align: center; 
         }
         .page-title span { color: var(--gold-accent); }
         .divider { width: 100px; height: 4px; background: var(--gold-accent); margin: 20px 0 50px 0; }
@@ -136,41 +122,29 @@
             border-radius: 12px;
             overflow: hidden;
             transition: 0.3s;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
         .char-card:hover { border-color: var(--gold-accent); transform: translateY(-5px); }
 
-            .char-img, .char-preview-img {
-            width: 100%;
-            height: 160px; 
-            background: #000;
-            object-fit: contain; 
+        .char-img, .char-preview-img {
+            width: 100%; height: 160px; 
+            background: #000; object-fit: contain; 
             object-position: bottom center; 
             border-bottom: 2px solid var(--gold-accent);
             display: block;
         }
 
-
         .char-info { padding: 20px; flex-grow: 1; }
-        .char-name { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--gold-accent); margin: 0 0 5px 0; }
-        .char-tier { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
+        .char-name { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--gold-accent); margin: 0 0 10px 0; }
         .char-desc { font-size: 0.85rem; color: #aaa; line-height: 1.4; margin-bottom: 15px; }
-
         .stat-bar { font-size: 0.8rem; display: flex; justify-content: space-between; margin-bottom: 5px; }
         .stat-bar b { color: #fff; }
 
         .btn-details {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background: rgba(240, 195, 45, 0.1);
-            color: var(--gold-accent);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-metal);
-            transition: 0.3s;
+            display: block; text-align: center; padding: 10px;
+            background: rgba(240, 195, 45, 0.1); color: var(--gold-accent);
+            text-decoration: none; font-weight: bold; font-size: 0.8rem;
+            border-top: 1px solid var(--border-metal); transition: 0.3s;
         }
         .btn-details:hover { background: var(--gold-accent); color: #000; }
 
@@ -192,15 +166,13 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" alt="TB" class="header-logo-img">
-        <div class="header-text">
-            <b>TITAN BATTLEFRONT</b>
-            <span>OFFICIAL DATABASE</span>
-        </div>
+        <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL DATABASE</span></div>
     </div>
-    <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+       <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
     <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
     <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
-    <a href="Character.html" class="nav-item active"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+    <a href="Achievement.html" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
 </nav>
 
 <main id="main-content">
@@ -209,135 +181,121 @@
 
     <div class="char-grid">
         <div class="char-card">
-             <img src="Doom2.png" alt="Doombringer" class="char-preview-img" onerror="this.src='https://i.ibb.co.com/W4j6ZbS9/Doom2.png'">
+            <img src="https://i.ibb.co.com/W4j6ZbS9/Doom2.png" class="char-preview-img">
             <div class="char-info">
-                <span class="char-tier">WOD</span>
                 <h3 class="char-name">Doombringer</h3>
                 <p class="char-desc">Huge damage, huge health, but very slow and requires too much energy.</p>
                 <div class="stat-bar">Health: <b>500 HP</b></div>
             </div>
             <a href="Wod.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
-            <img src="Claws4.png" alt="Poly" class="char-preview-img" onerror="this.src='https://i.ibb.co/xqV2PCh3/Claws4.png'">
+            <img src="https://i.ibb.co/xqV2PCh3/Claws4.png" class="char-preview-img">
             <div class="char-info">
-                <span class="char-tier">Elite</span>
                 <h3 class="char-name">Void Destroyer</h3>
-                <p class="char-desc">Strong soldier with claws and BIG LONG SWORD, also uses his screens to attack.</p>
+                <p class="char-desc">Strong soldier with claws and BIG LONG SWORD.</p>
                 <div class="stat-bar">Health: <b>225 HP</b></div>
             </div>
             <a href="Poly.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/1BHf442/Jugger2.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Tank</span>
                 <h3 class="char-name">Juggernaut</h3>
-                <p class="char-desc">His main characteristic is his colossal strength. He is capable of tearing apart opponents with his bare hands.</p>
+                <p class="char-desc">Capable of tearing apart opponents with his bare hands.</p>
                 <div class="stat-bar">Health: <b>350 HP</b></div>
             </div>
             <a href="Juggernaut.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/0LDCfFQ/Glitch-Frame-1.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Agility</span>
                 <h3 class="char-name">Glitch Soldier</h3>
-                <p class="char-desc">Incredible fast, but very fragile. You need to play carefully to avoid attacks.</p>
+                <p class="char-desc">Incredible fast, but very fragile. Play carefully.</p>
                 <div class="stat-bar">Health: <b>125 HP</b></div>
             </div>
             <a href="Glitch.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/Xk7gkgDH/Scythe3.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Balanced</span>
                 <h3 class="char-name">Executor</h3>
-                <p class="char-desc">Good in everything, but the attacks take too long when you use them.</p>
+                <p class="char-desc">Good in everything, but the attacks take too long.</p>
                 <div class="stat-bar">Health: <b>265 HP</b></div>
             </div>
             <a href="Executor.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/kV6YygBh/Gman4.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Artillery</span>
                 <h3 class="char-name">Solar Anhhiliator</h3>
-                <p class="char-desc">A huge mechanized monster that looks like a walking combat platform.</p>
+                <p class="char-desc">A walking combat platform with heavy weaponry.</p>
                 <div class="stat-bar">Health: <b>200 HP</b></div>
             </div>
             <a href="Gman4.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/0pGNS2FD/Hammer.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Brawler</span>
                 <h3 class="char-name">Unstoppable Hero</h3>
-                <p class="char-desc">A heavily armored fighter with a jetpack for mobility, armed with a hammer.</p>
+                <p class="char-desc">Armored fighter with a jetpack and a hammer.</p>
                 <div class="stat-bar">Health: <b>200 HP</b></div>
             </div>
             <a href="Utc.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/b5Qk6KX6/Speaker.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Scout</span>
                 <h3 class="char-name">StormBreaker</h3>
-                <p class="char-desc">Mobile but fragile, it uses energy cannons and sound attacks as its primary weapons.</p>
+                <p class="char-desc">Mobile but fragile. Uses energy cannons and sound.</p>
                 <div class="stat-bar">Health: <b>150 HP</b></div>
             </div>
             <a href="Uts.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/XrvLd0FF/Cinema.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Defender</span>
                 <h3 class="char-name">Undying Tank</h3>
-                <p class="char-desc">Armored but very slow, strong in close combat but weak against mobile opponents.</p>
+                <p class="char-desc">Armored but very slow, strong in close combat.</p>
                 <div class="stat-bar">Health: <b>300 HP</b></div>
             </div>
             <a href="Cinema.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/xqYmf9yv/Night-Blade.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Assassin</span>
                 <h3 class="char-name">NightBlade</h3>
                 <p class="char-desc">Focuses on long-range weaponry and artillery.</p>
                 <div class="stat-bar">Health: <b>250 HP</b></div>
             </div>
             <a href="Uttv.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/zTqkPdg2/Energized1.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Berserker</span>
                 <h3 class="char-name">Energized Slayer</h3>
-                <p class="char-desc">A fast and very strong character, but vulnerable and only attacks with melee attacks.</p>
+                <p class="char-desc">Fast and strong, but vulnerable melee character.</p>
                 <div class="stat-bar">Health: <b>135 HP</b></div>
             </div>
             <a href="Etv.html" class="btn-details">VIEW SKILLS</a>
         </div>
-
         <div class="char-card">
             <img src="https://i.ibb.co/S7mSY4V2/Pila5.png" class="char-img">
             <div class="char-info">
-                <span class="char-tier">Swordmaster</span>
                 <h3 class="char-name">Recognized Swordsman</h3>
-                <p class="char-desc">Lots of weapons, lots of health, very fast, isn't that all you need for perfection?</p>
+                <p class="char-desc">Lots of weapons, lots of health, very fast.</p>
                 <div class="stat-bar">Health: <b>310 HP</b></div>
             </div>
             <a href="Fred.html" class="btn-details">VIEW SKILLS</a>
+        </div>
+        <div class="char-card">
+            <img src="https://i.ibb.co.com/7JdbrcRj/maxresdefault.jpg" class="char-preview-img">
+            <div class="char-info">
+                <h3 class="char-name">Queen of Death</h3>
+                <p class="char-desc">A mysterious ruler emerging from the shadows.</p>
+                <div class="stat-bar">Health: <b>175 HP</b></div>
+            </div>
+            <a href="Queen.html" class="btn-details">VIEW SKILLS</a>
         </div>
     </div>
 
@@ -346,23 +304,11 @@
 
     <div class="char-grid">
         <div class="char-card">
-            <img src="Doom2.png" alt="Queen of Death" class="char-preview-img" onerror="this.src='https://i.ibb.co.com/7JdbrcRj/maxresdefault.jpg'">
+            <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" class="char-preview-img">
             <div class="char-info">
-                <span class="char-tier" style="color: var(--gold-accent);">Shadow Tier</span>
-                <h3 class="char-name">Queen of Death</h3>
-                <p class="char-desc">A mysterious ruler emerging from the shadows. Capabilities are currently being analyzed.</p>
-                <div class="stat-bar">Health: <b>??? HP</b></div>
-            </div>
-            <a href="#" class="btn-details">COMING SOON</a>
-        </div>
-
-        <div class="char-card">
-            <img src="https://i.ibb.co.com/MytrzHN2/242-20260215231647.png" class="char-preview-img">
-            <div class="char-info">
-                <span class="char-tier" style="color: var(--gold-accent);">Experimental</span>
                 <h3 class="char-name">Injured Hero</h3>
-                <p class="char-desc">A battle-scarred warrior upgraded with Astro-tech. High offensive potential with shoulder cannons.</p>
-                <div class="stat-bar">Health: <b>??? HP</b></div>
+                <p class="char-desc">Battle-scarred warrior upgraded with Astro-tech.</p>
+                <div class="stat-bar">Health: <b>250 HP</b></div>
             </div>
             <a href="Injured.html" class="btn-details">VIEW SKILLS</a>
         </div>
