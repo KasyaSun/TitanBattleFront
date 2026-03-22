@@ -24,35 +24,15 @@
             display: flex;
             min-height: 100vh;
             color: #e0e0e0;
-            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
-                        url('https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png') no-repeat center center;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                url('https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png') no-repeat center center;
             background-size: cover;
             background-attachment: fixed;
             overflow-x: hidden;
         }
 
-        #mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 2000;
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--gold-accent);
-            border: 1px solid rgba(240, 195, 45, 0.3);
-            backdrop-filter: blur(2px);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #mobile-menu-btn:hover {
-            background: rgba(240, 195, 45, 0.2);
-            border-color: var(--gold-accent);
-        }
-
+        /* SIDEBAR / HEADER */
         #sidebar {
             width: var(--sidebar-width-closed);
             height: 100vh;
@@ -74,7 +54,7 @@
             border-bottom: 1px solid var(--border-metal);
             min-width: var(--sidebar-width-open);
         }
-        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; flex-shrink: 0; }
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; }
         .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
         #sidebar:hover .header-text { opacity: 1; }
         .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
@@ -91,12 +71,12 @@
         .nav-item:hover { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
         .nav-item.active { color: var(--gold-accent); background: rgba(240, 195, 45, 0.1); border-left: 3px solid var(--gold-accent); }
 
+        /* MAIN CONTENT */
         #main-content {
             margin-left: var(--sidebar-width-closed);
             flex-grow: 1;
             padding: 60px 40px;
             display: flex; flex-direction: column; align-items: center;
-            transition: 0.3s;
         }
 
         .page-title {
@@ -119,12 +99,14 @@
             margin: 20px 0 50px 0;
         }
 
+        /* QUESTS */
         .quest-container {
             max-width: 1100px;
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            margin-bottom: 40px;
         }
 
         .quest-item {
@@ -198,11 +180,6 @@
             gap: 15px;
             transition: 0.3s;
         }
-        .task-card:hover {
-            background: rgba(240, 195, 45, 0.05);
-            border-color: rgba(240, 195, 45, 0.4);
-            transform: scale(1.02);
-        }
 
         .task-info { display: flex; align-items: flex-start; gap: 15px; }
         .task-info i { color: var(--gold-accent); font-size: 1.2rem; width: 25px; text-align: center; }
@@ -231,83 +208,41 @@
             align-items: center;
         }
 
-        .reward-item {
-            display: flex;
-            align-items: center;
-            gap: 15px; 
-        }
-
+        .reward-item { display: flex; align-items: center; gap: 15px; }
         .reward-label { color: var(--gold-accent); font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .reward-link { display: flex; align-items: center; text-decoration: none; gap: 12px; transition: transform 0.2s ease; }
+        .reward-icon { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gold-accent); object-fit: cover; box-shadow: 0 0 10px rgba(240, 195, 45, 0.3); }
+        .reward-val { color: #fff; font-size: 1.1rem; font-weight: bold; font-family: 'Orbitron'; text-shadow: 0 0 10px var(--gold-accent); }
 
-        .reward-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 12px;
-            transition: transform 0.2s ease;
+        /* SPECIAL QUESTS SPECIFIC UI */
+        .info-footer-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+            margin-top: 20px;
         }
-
-        .reward-link:hover {
-            transform: scale(1.05);
+        .info-footer-box p {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+            font-weight: 500;
         }
-
-        .reward-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid var(--gold-accent);
-            object-fit: cover;
-            box-shadow: 0 0 10px rgba(240, 195, 45, 0.3);
+        .clocks-status {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
-
-        .reward-val { 
-            color: #fff; 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            font-family: 'Orbitron'; 
-            text-shadow: 0 0 10px var(--gold-accent); 
-        }
-
-        @media (max-width: 768px) {
-            #mobile-menu-btn { display: block; }
-
-            #sidebar {
-                width: 260px;
-                left: -270px;
-                top: 0;
-                height: 100vh;
-                border-right: 2px solid var(--gold-accent);
-                background: #000;
-                box-shadow: none;
-                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            #sidebar.active { 
-                left: 0; 
-                box-shadow: 10px 0 100px rgba(0,0,0,0.9);
-            }
-            
-            #sidebar .header-text { opacity: 1; }
-            #sidebar .nav-item span { opacity: 1; }
-            .sidebar-header { display: flex; } 
-
-            #main-content {
-                margin-left: 0;
-                padding: 80px 15px 40px 15px;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .page-title { font-size: 3rem; letter-spacing: 5px; }
-            .quest-grid { grid-template-columns: 1fr; }
-            .reward-item { flex-direction: column; gap: 10px; text-align: center; }
-            body { background-attachment: scroll; }
-        }
+        .clocks-status span { color: var(--gold-accent); }
     </style>
 </head>
 <body>
-
-<button id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
 
 <nav id="sidebar">
     <div class="sidebar-header">
@@ -317,11 +252,11 @@
             <span>OFFICIAL DATABASE</span>
         </div>
     </div>
-  <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
     <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
     <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
     <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
-    <a href="Achievement.html" class="nav-item item"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
+    <a href="Achievement.html" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
 </nav>
 
 <main id="main-content">
@@ -385,8 +320,8 @@
                     <div class="reward-footer">
                         <div class="reward-item">
                             <span class="reward-label">Unlock Character:</span>
-                            <a href="Poly.html" class="reward-link">
-                                <img src="https://i.ibb.co.com/wNbVtJRQ/Claws4.png" alt="Void Destroyer" class="reward-icon">
+                            <a href="Test" class="reward-link">
+                                <img src="https://i.ibb.co.com/xqV2PCh3/Claws4.png" alt="Void Destroyer" class="reward-icon">
                                 <span class="reward-val">Void Destroyer</span>
                             </a>
                         </div>
@@ -516,7 +451,7 @@
     <div class="reward-item">
         <span class="reward-label">Unlock Skin:</span>
         <a href="Juggernaut.html" class="reward-link">
-            <img src="https://i.ibb.co.com/1BHf442/Jugger2.png" alt="Icon" class="reward-icon">
+            <img src="https://cdn.discordapp.com/attachments/1282401001483010140/1467896781193875650/Jugger2.png?ex=69820ce8&is=6980bb68&hm=02f3a2cd3ab37f603dc3a8e938c7503b58f31c0b16d4a7fa752f04c2df8569b0&" alt="Icon" class="reward-icon">
             <span class="reward-val">Juggernaut</span>
         </a>
     </div>
@@ -788,66 +723,196 @@
                             <div class="task-info">
                                 <div class="task-name">Kill Character Glitch-Soldier as Character DoomBringer.</div>
                             </div>
-                            <div class="task-meta"><span>Required</span><span>10 Kills</span></div>
+                            <div class="task-meta"><span>Required</span><span>3200 Seconds</span></div>
                         </div>
                         
                     </div>
                     <div class="reward-footer">
                         <div class="reward-item">
                             <span class="reward-label">Unlock Character:</span>
-                            <a href="Fred.html" class="reward-link">
+                            <a href="Poly.html" class="reward-link">
                                 <img src="https://i.ibb.co.com/S7mSY4V2/Pila5.png" alt="Void Destroyer" class="reward-icon">
                                 <span class="reward-val">Recongized Swordsman</span>
                             </a>
-                                        </div>
+                                     
                     </div>
                 </div>
-</div>
+                </div>
+            </div>
+            </div>
+
+    <div class="quest-item">
+            <div class="quest-header">
+                <h2>Queen of Death</h2>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+    <div class="quest-content">
+                <div class="quest-inner">
+                    <span class="objective-title">Required Tasks</span>
+                    <div class="quest-grid">
+                        <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Kill Character NightBlade as Character Void Destroyer.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>25 Kills</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Kill Character Solar Annihilator as Character Juggernaut.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>25 Kills</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Kill Character Unstoppable Hero as Character Glitch-Soldier.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>25 Kills</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Play as Character Executor.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>3600 Seconds</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Play as Character Void Destroyer.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>3600 Seconds</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Take Damage while using Sheild as Character Solar Annihilator.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>500 DMG (with sheild)</span></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-info">
+                        <div class="task-name">Take Damage while using Sheild as Character Juggernaut.</div>
+                    </div>
+                    <div class="task-meta"><span>Required</span><span>500 DMG (with sheild)</span></div>
+                </div>
+
+            </div>
+
+            <div class="reward-footer">
+                <div class="reward-item">
+                    <span class="reward-label">Unlock Character:</span>
+                    <a href="Queen.html" class="reward-link">
+                        <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" alt="Icon" class="reward-icon">
+                        <span class="reward-val">Queen Of Death</span>
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
+</div>
         
+
+    <div class="quest-container">
+        <span class="objective-title">Special Quests</span>
+
+        <div class="quest-item">
+            <div class="quest-header">
+                <h2>Quest 1: Clock's Chief (Unit Quest)</h2>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="quest-content">
+                <div class="quest-inner">
+                    <span class="objective-title">Requirements</span>
+                    <div class="quest-grid">
+                        <div class="task-card">
+                            <div class="task-info">
+                                <i class="fa-solid fa-clock"></i>
+                                <div class="task-name">Every hour, a Clock Spider spawns anywhere on the map.</div>
+                            </div>
+                            <div class="task-meta"><span>Required</span><span>5 Clocks</span></div>
+                        </div>
+                        <div class="task-card">
+                            <div class="task-info">
+                                <i class="fa-solid fa-user-clock"></i>
+                                <div class="task-name">You must be online for 6 minutes to be eligible for the spawn.</div>
+                            </div>
+                            <div class="task-meta"><span>Wait Time</span><span>360s</span></div>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <div class="reward-item">
+                            <span class="reward-label">Reward:</span>
+                            <a href="ClocksChief.html" class="reward-link">
+                                <img src="https://i.ibb.co/0LDCfFQ/Glitch-Frame-1.png" alt="Chief" class="reward-icon">
+                                <span class="reward-val">Clock's Chief</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quest-item">
+            <div class="quest-header">
+                <h2>Quest 2: Time Manipulator (Unit Quest)</h2>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="quest-content">
+                <div class="quest-inner">
+                    <span class="objective-title">Requirements</span>
+                    <div class="quest-grid">
+                        <div class="task-card">
+                            <div class="task-info">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                                <div class="task-name">Clock Spider despawns 5 minutes after spawning. Be the first to claim it!</div>
+                            </div>
+                            <div class="task-meta"><span>Required</span><span>10 Clocks</span></div>
+                        </div>
+                        <div class="task-card">
+                            <div class="task-info">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                                <div class="task-name">Collect more Clock Spiders to unlock higher tier units.</div>
+                            </div>
+                            <div class="task-meta"><span>Type</span><span>Special</span></div>
+                        </div>
+                    </div>
+                    <div class="reward-footer">
+                        <div class="reward-item">
+                            <span class="reward-label">Reward:</span>
+                            <a href="TimeManipulator.html" class="reward-link">
+                                <img src="https://i.ibb.co/W4j6ZbS9/Doom2.png" alt="Time" class="reward-icon">
+                                <span class="reward-val">Time Manipulator</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-footer-box">
+            <p>
+                Every hour, a Clock Spider spawns anywhere on the map.<br>
+                Be the first to claim it. You must be online for 6 minutes to be eligible.<br>
+                Clock Spider despawns 5 minutes after spawning.
+            </p>
+            <div class="clocks-status">
+                YOUR CURRENT CLOCKS: <span>[NUMBER_OF_YOU_GOT]</span>
+            </div>
+        </div>
     </div>
 </main>
 
 <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    
-    btn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!sidebar.contains(e.target) && !btn.contains(e.target) && sidebar.classList.contains('active')) {
-            sidebar.classList.remove('active');
-        }
-    });
-
     document.querySelectorAll('.quest-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
-            const isActive = item.classList.contains('active');
-
-            document.querySelectorAll('.quest-item').forEach(el => {
-                el.classList.remove('active');
-            });
-
-            if (!isActive) {
-                item.classList.add('active');
-            }
+            item.classList.toggle('active');
         });
     });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
