@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock's Chief | Titan Battlefront Wiki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --sidebar-bg: #0d0d0d;
+            --card-bg: rgba(15, 15, 15, 0.98);
+            --gold-accent: #f0c32d;
+            --border-metal: #2a1f16;
+            --damage-color: #ff4d4d;
+            --heal-color: #4dff88;
+            --sidebar-width-closed: 70px;
+            --sidebar-width-open: 280px;
+            --transition-speed: 0.4s;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            color: #fff;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                        url('https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        #sidebar {
+            width: var(--sidebar-width-closed);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 2px solid var(--border-metal);
+            position: fixed;
+            left: 0; top: 0;
+            z-index: 1000;
+            transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar:hover { width: var(--sidebar-width-open); }
+        .sidebar-header { padding: 20px 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border-metal); min-width: var(--sidebar-width-open); }
+        .header-logo-img { width: 40px; height: 40px; border: 1px solid var(--gold-accent); object-fit: cover; }
+        .header-text { opacity: 0; transition: 0.2s; white-space: nowrap; }
+        #sidebar:hover .header-text { opacity: 1; }
+        .header-text b { display: block; color: #fff; font-size: 0.9rem; letter-spacing: 1px; }
+        .header-text span { color: var(--gold-accent); font-size: 0.7rem; font-weight: bold; }
+
+        .nav-item { display: flex; align-items: center; padding: 18px 22px; text-decoration: none; color: #888; transition: 0.3s; white-space: nowrap; }
+        .nav-item i { font-size: 1.2rem; min-width: 25px; text-align: center; }
+        .nav-item span { margin-left: 20px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; opacity: 0; transition: 0.2s; }
+        #sidebar:hover .nav-item span { opacity: 1; }
+        .nav-item:hover { color: var(--gold-accent); background: rgba(240, 195, 45, 0.05); }
+
+        #main-content {
+            margin-left: var(--sidebar-width-closed);
+            flex-grow: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { max-width: 1000px; width: 100%; }
+
+        .profile-header {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-metal);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+        }
+
+        .image-viewport {
+            width: 100%; height: 320px; background: #000;
+            border-radius: 12px; border: 2px solid var(--gold-accent);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .char-preview-img { width: 95%; object-fit: contain; }
+
+        .char-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            margin: 10px 0;
+            color: var(--gold-accent);
+        }
+
+        .main-stats { display: flex; gap: 15px; margin-top: 25px; }
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px; border-radius: 10px;
+            flex: 1; text-align: center; border: 1px solid var(--border-metal);
+        }
+        .stat-box b { display: block; font-size: 1.5rem; color: #fff; font-family: 'Orbitron'; }
+        .stat-box span { font-size: 0.7rem; color: var(--gold-accent); font-weight: bold; }
+
+        .passive-box {
+            margin-top: 20px; padding: 15px;
+            border-left: 3px solid var(--gold-accent);
+            background: rgba(240, 195, 45, 0.05);
+        }
+
+        .skills-grid { margin-top: 40px; display: grid; gap: 12px; }
+        .skill-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-metal);
+            border-radius: 12px;
+            padding: 18px 25px;
+            display: grid;
+            grid-template-columns: 140px 1fr 280px;
+            align-items: center;
+        }
+
+        .key { font-family: 'Orbitron'; color: var(--gold-accent); font-weight: 900; font-size: 0.9rem; }
+        .skill-name { font-family: 'Oswald'; font-size: 1.3rem; text-transform: uppercase; }
+        .damage-tag { text-align: right; font-family: 'Orbitron'; color: var(--damage-color); font-weight: bold; }
+        .damage-tag span { display: block; font-size: 0.65rem; color: #888; text-transform: none; line-height: 1.2; }
+
+        .tag-clocks {
+            display: inline-block; background: #1a1a1a; color: var(--gold-accent);
+            padding: 4px 12px; border: 1px solid var(--gold-accent);
+            border-radius: 4px; font-family: 'Orbitron'; font-size: 0.7rem; margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <img src="https://i.ibb.co/YFKxdqqc/Titan-battlefronts-wod.png" alt="TB" class="header-logo-img">
+        <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL DATABASE</span></div>
+    </div>
+    <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Characters</span></a>
+</nav>
+
+<main id="main-content">
+    <div class="container">
+        
+        <div class="profile-header">
+            <div class="image-viewport">
+                <img src="https://i.ibb.co.com/7JdbrcRj/maxresdefault.jpg" alt="Clock's Chief" class="char-preview-img">
+            </div>
+            <div class="char-info">
+                <div class="tag-clocks">CLOCKS RACE</div>
+                <h1>Clock's Chief</h1>
+                <div class="main-stats">
+                    <div class="stat-box"><b>320</b><span>HEALTH</span></div>
+                    <div class="stat-box"><b>100</b><span>ENERGY</span></div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="font-family: 'Orbitron'; margin-top: 40px; border-left: 4px solid var(--gold-accent); padding-left: 15px;">ABILITY DATA</h2>
+
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="key">[M1 / Click]</div>
+                <div class="skill-name">Heavy Strike</div>
+                <div class="damage-tag">45 Damage<span>Powerful punch attack.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[G - Counter]</div>
+                <div class="skill-name">Two Steps Ahead</div>
+                <div class="damage-tag">Counter<span>Teleports behind enemies when shot by lasers/orbs.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[T]</div>
+                <div class="skill-name">Time Repair</div>
+                <div class="damage-tag" style="color:var(--heal-color)">7 HP / tick<span>Heals self, but also heals nearby enemies.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[Q]</div>
+                <div class="skill-name">Clock-Change</div>
+                <div class="damage-tag">Utility<span>Cycle orb type: Yellow &gt; Red &gt; Green.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[E]</div>
+                <div class="skill-name">Clock Shoot</div>
+                <div class="damage-tag">Varies<span>Y: 40 Dmg | R: 80 Dmg | G: 2s Stun.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[R]</div>
+                <div class="skill-name">Shurikens</div>
+                <div class="damage-tag">1 Damage Tick<span>Throws 2 shurikens at enemies.</span></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="key">[F]</div>
+                <div class="skill-name">Time Stop</div>
+                <div class="damage-tag">Ultimate<span>Stops time for several seconds. Requires 100% bar.</span></div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
