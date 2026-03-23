@@ -84,16 +84,11 @@
             font-size: 0.8rem;
             font-weight: bold;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            align-items: center; gap: 10px;
             transition: 0.3s;
             padding: 8px 15px;
         }
-
-        .btn-back:hover {
-            color: var(--gold-accent);
-            transform: translateX(-5px);
-        }
+        .btn-back:hover { color: var(--gold-accent); transform: translateX(-5px); }
 
         .profile-header {
             display: grid;
@@ -127,17 +122,6 @@
             margin-bottom: 4px;
         }
 
-        .image-viewport::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gold-accent);
-            box-shadow: 0 -2px 10px rgba(240, 195, 45, 0.5);
-        }
-
         .char-title h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 3rem;
@@ -161,6 +145,29 @@
         }
         .stat-box b { display: block; font-size: 1.5rem; color: #fff; font-family: 'Orbitron'; }
         .stat-box span { font-size: 0.7rem; color: var(--gold-accent); font-weight: bold; }
+
+        /* PASSIVE SECTION */
+        .passive-container {
+            margin-top: 20px;
+            background: rgba(240, 195, 45, 0.05);
+            border-left: 4px solid var(--gold-accent);
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .passive-title {
+            font-family: 'Orbitron';
+            color: var(--gold-accent);
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .passive-desc {
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
 
         .skills-grid {
             margin-top: 40px;
@@ -211,7 +218,6 @@
 
         @media (max-width: 850px) {
             .profile-header { grid-template-columns: 1fr; }
-            .image-viewport { height: 280px; }
             .skill-item { grid-template-columns: 80px 1fr; }
             .damage-tag { grid-column: 2; text-align: left; }
         }
@@ -225,11 +231,11 @@
             <div class="header-text"><b>TITAN BATTLEFRONT</b><span>OFFICIAL WIKI</span></div>
         </div>
         <nav style="margin-top: 20px;">
-           <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
-    <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
-    <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
-    <a href="Achievement.html" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="Quest.html" class="nav-item"><i class="fa-solid fa-scroll"></i><span>Quests</span></a>
+            <a href="Updatelog.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Update Logs</span></a>
+            <a href="Character.html" class="nav-item"><i class="fa-solid fa-user-ninja"></i><span>Character</span></a>
+            <a href="Achievement.html" class="nav-item"><i class="fa-solid fa-trophy"></i><span>Achievements</span></a>
         </nav>
     </aside>
 
@@ -248,13 +254,22 @@
                 </div>
 
                 <div class="char-info">
-                    <div style="color: var(--gold-accent); font-weight: bold; letter-spacing: 3px; font-size: 0.8rem;">EARLY ACCESS</div>
+                    <div style="color: var(--gold-accent); font-weight: bold; letter-spacing: 3px; font-size: 0.8rem;">UPDATED STATUS</div>
                     <h1>INJURED HERO</h1>
                     <p style="color: #888; font-style: italic; margin-bottom: 20px;">"After all the battles... he didn't fall, but received a new weapon: an astro claw and shoulder lasers."</p>
                     
                     <div class="main-stats">
-                        <div class="stat-box"><b>205</b><span>HEALTH</span></div>
+                        <div class="stat-box"><b>205</b><span>BASE HEALTH</span></div>
                         <div class="stat-box"><b>100</b><span>ENERGY</span></div>
+                        <div class="stat-box"><b>305</b><span>MAX CAP</span></div>
+                    </div>
+
+                    <div class="passive-container">
+                        <span class="passive-title">PASSIVE: OVERHEALTH</span>
+                        <p class="passive-desc">
+                            He can increase his maximum health by killing other players. 
+                            <b>Max capacity: 305 HP.</b>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -288,20 +303,20 @@
 
                 <div class="skill-item">
                     <div class="key">V</div>
-                    <div class="skill-name">You're Mine</div>
-                    <div class="damage-tag">40+ DMG<span>40 ON LANDING / +2 LASER DAMAGE</span></div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="key">V</div>
                     <div class="skill-name">AstroClawStrike</div>
-                    <div class="damage-tag">65 DMG<span>Punchs up with astro hand pushs up</span></div>
+                    <div class="damage-tag">65 DMG<span>PUNCHES UP WITH ASTRO HAND + PUSHBACK</span></div>
                 </div>
 
                 <div class="skill-item">
                     <div class="key">T</div>
                     <div class="skill-name">Claw Grab</div>
-                    <div class="damage-tag">80 Dmg<span>Grabs up the enemy and does 15 dmg Per hit final hit does 30 dmg</span></div>
+                    <div class="damage-tag">80 DMG<span>GRABS ENEMY: 15 DMG/HIT | FINAL: 30 DMG</span></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="key">Q</div>
+                    <div class="skill-name">Dash</div>
+                    <div class="damage-tag">UTILITY<span>QUICK REPOSITIONING DASH</span></div>
                 </div>
             </div>
 
